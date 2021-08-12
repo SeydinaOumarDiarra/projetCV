@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <title>CV Seydina</title>
+        <link rel="stylesheet" type="text/css" href="styleCV.css">
+         <! --import jspdf pour le téléchargement en pdf -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.4/jspdf.min.js"></script>
+         <! --import de jquery-->
+        <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.5/jquery.min.js"></script>
+
+    </head>
+    <body>
+    <div class="aligner ombrage" id="content">
+    	<center>
+    	<h1>Seydina Oumar DIARRA</h1>
+    	<a href="photo.JPG">
+    		<img src="photo.JPG" width="50px" height="50px" alt="Ma photo">
+    	</a> 
+    	</center>   	
+    	
+    		<section class="aligneleft">
+    			<h2 class="orange">Mon expérience</h2>
+    			<ul>
+    				<li>Stage 1</li>
+    				<li>Stage 2</li>
+    			</ul>
+    		</section>
+    		<section class="aligneleft">
+    			<h2 class="orange">Mes compétences</h2>
+    			<ul>
+    				<li>Competence 1</li>
+    				<li>Competence 2</li>
+    			</ul>
+    		</section>
+    		<section class="aligneleft">
+    			<h2  class="orange">Ma formation</h2>
+    			<ul>
+    				<li>Formation 1</li>
+    				<li>Formation 2</li>
+    			</ul>
+    		</section>
+    		<section class="aligner2">
+    			<div id="editor"></div>
+    			<button  id="tele" type="button" onclick="cliquerCV();">Télecharger mon CV</button><br/><br/>
+    			<b><span style="color: green" id="span_txt"></span></b>
+    		</section>
+    	</div>
+    		
+    		
+    	<script type="text/javascript">
+    		function cliquerCV() {
+
+    			//declaration du variable span pour recuperer l'Id span_text
+			  var span = document.getElementById("span_txt");
+
+			  	//declaration de la classe pdf en js
+			  	var doc = new jsPDF();
+				var specialElementHandlers = {
+				    '#editor': function (element, renderer) {
+				        return true;
+				    }
+				};
+
+				//on vérifie si le contenu de la balise portant l'id span_text est différent de vide
+			  if(span.innerHTML != "") {
+
+			  	//si oui, on l'initialise à vide
+			    span.innerHTML = "";
+
+
+			    //fonction permettant de rendre le contenu de l'id 'content' en pdf
+			    $('#tele').click(function () {
+			    doc.fromHTML($('#content').html(), 15, 15, {
+			        'width': 170,
+			            'elementHandlers': specialElementHandlers
+			    });
+
+			    //fonction permettant de télécharger le contenu de l'id 'content' en pdf sur la machine locale
+			    doc.save('CV.pdf');
+				});
+
+			  } else {
+
+			  	//si le contenu de la balise portant l'id span_text est vide on l'initialise au chaine
+			  	//caractere "voici mon CV"
+			    span.innerHTML = "Voici mon CV !";
+
+			    window.alert('Voici mon cv !')
+			    }
+			}
+    	</script>
+    	
+    </body>
+</html>
